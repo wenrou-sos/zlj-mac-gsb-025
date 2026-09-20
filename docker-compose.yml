@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: sangha-pg
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sangha
+      POSTGRES_PASSWORD: sangha
+      POSTGRES_DB: sangha
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
